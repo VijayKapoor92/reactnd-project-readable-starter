@@ -18,8 +18,6 @@ class App extends Component{
     }
 
     render(){
-
-        const sortedPosts = posts.sort(sortBy(sort));
         return (
             <Fragment>
                 <Route
