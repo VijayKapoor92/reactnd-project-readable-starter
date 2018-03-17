@@ -2,8 +2,16 @@ import React, {Component, Fragment} from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route } from 'react-router-dom';
 import sortBy from 'sort-by';
+
+import HomeView from './views/HomeView';
+import CategoryView from './views/CategoryView';
+import PostView from './views/PostView';
+import EditPostView from './views/EditPostView';
+
+
 import { sortPosts } from './actions/sync/';
 import { fetchCategories, fetchPosts, votePost, voteComment } from './actions/async/';
+
 import K from "./utils/constants";
 
 const sortOptions = [
@@ -28,13 +36,32 @@ class App extends Component{
     }
 
     render(){
+        const { posts = {}, categories, sort, onSortBy, onPositivePost, onNegativePost, onPositiveComment, onNegativeComment } = this.props;
+        const sortedPosts = posts.sort(sortBy(sort));
+
         return (
             <Fragment>
                 <Route
                     exact path="/"
                     render={ () => (
-                        <div>Hello World</div>
+                        <HomeView />
                     )}
+                />
+                <Route
+                    path="/category"
+                    render={() => (
+                        <CategoryView />
+                    )}
+                />
+                <Route
+                    path="/post"
+                    render={ () =>
+                        <PostView />
+                    }
+                />
+                <Route
+                    path="/form"
+                    component = { EditPostView }
                 />
             </Fragment>
         );
