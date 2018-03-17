@@ -17,6 +17,16 @@ class App extends Component{
         super(props);
     }
 
+    /*
+    * This is the only lifecycle hook called on server rendering.
+    * */
+
+    componentWillMount(){
+        const { onLoadCategories, onLoadPosts } = this.props;
+        onLoadCategories();
+        onLoadPosts();
+    }
+
     render(){
         return (
             <Fragment>
