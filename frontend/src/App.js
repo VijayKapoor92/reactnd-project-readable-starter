@@ -3,26 +3,46 @@ import { connect } from 'react-redux';
 import { withRouter, Route } from 'react-router-dom';
 import sortBy from 'sort-by';
 
+import TextField from 'material-ui/TextField';
+import Menu from './components/Menu';
+
 import HomeView from './views/HomeView';
 import CategoryView from './views/CategoryView';
 import PostView from './views/PostView';
 import EditPostView from './views/EditPostView';
 
-
 import { sortPosts } from './actions/sync/';
 import { fetchCategories, fetchPosts, votePost, voteComment } from './actions/async/';
+
+import { withStyles } from 'material-ui/styles';
 
 import K from "./utils/constants";
 
 const sortOptions = [
-    {value:K.SORTED_BY_DATE, text:'Date'},
-    {value:K.SORTED_BY_VOTE_SCORE, text:'Score'},
+    {value: K.SORTED_BY_DATE, text:'Date'},
+    {value: K.SORTED_BY_VOTE_SCORE, text:'Score'},
 ];
+
+const styles = theme => ({
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        backgroundColor: "#FFFFFF",
+        width: "100%"
+    }
+});
+const InputProps = {
+    disableUnderline: true
+};
 
 class App extends Component{
 
     constructor(props){
         super(props);
+        this.state = {
+            is_open_drawer : false,
+            is_open_sort_menu : false
+        }
     }
 
     /*
@@ -35,16 +55,35 @@ class App extends Component{
         onLoadPosts();
     }
 
+    toggleDrawer = is_open_drawer =>
+        this.setState({is_open_drawer});
+
+    toggleSortMenu = is_open_sort_menu =>
+        this.setState({is_open_sort_menu});
+
     render(){
-        const { posts = {}, categories, sort, onSortBy, onPositivePost, onNegativePost, onPositiveComment, onNegativeComment } = this.props;
+        const { is_open_drawer, is_open_sort_menu } = this.state;
+        const { posts = {}, categories, sort, onSortBy, onPositivePost, onNegativePost, onPositiveComment, onNegativeComment, classes } = this.props;
         const sortedPosts = posts.sort(sortBy(sort));
 
         return (
             <Fragment>
+                <Menu
+                    open={is_open_drawer}
+                    categories={categories}
+                    onClose={()=>this.toggleDrawer(false)}
+                    onSave={this.handleSubmitComment}
+                />
                 <Route
                     exact path="/"
                     render={ () => (
-                        <HomeView />
+                        <HomeView
+                            posts={sortedPosts}
+                            onOpenDrawer={() => this.toggleDrawer(true)}
+                            onOpenSortMenu={() => this.toggleSortMenu(true)}
+                            onPositivePost={onPositivePost}
+                            onNegativePost={onNegativePost}
+                        />
                     )}
                 />
                 <Route
@@ -84,4 +123,4 @@ const mapDispatchToProps = dispatch => ({
     onNegativeComment: ({id}) => dispatch(voteComment(id, "downVote"))
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(App)));
