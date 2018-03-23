@@ -18,4 +18,4 @@ Categoria.propTypes = {
     path: PropTypes.string.isRequired
 };
 
-export default Categoria;
+export default Categor;

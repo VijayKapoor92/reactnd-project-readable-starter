@@ -29,8 +29,8 @@ const Menu = ({open, categories, onClose}) => (
                 {categories.map( (category, index) =>
                     <Categoria
                         key={index}
-                        path={category[0]}
-                        name={category[1]}
+                        path={category.path}
+                        name={category.name}
                     />
                 )}
             </List>
@@ -40,7 +40,10 @@ const Menu = ({open, categories, onClose}) => (
 
 Menu.propTypes = {
     open: PropTypes.bool.isRequired,
-    categories: PropTypes.array.isRequired,
+    categories: PropTypes.arrayOf(PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        path: PropTypes.string.isRequired
+    })).isRequired,
     onClose: PropTypes.func.isRequired
 };
 
