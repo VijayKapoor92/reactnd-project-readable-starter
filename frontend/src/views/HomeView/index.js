@@ -8,6 +8,8 @@ import Bar from "../../components/Bar";
 import MainContainer from "../../components/MainContainer";
 import Posts from "../../components/Posts";
 
+import styles from '../../styles';
+
 class HomeView extends Component {
 
     renderToolbar(){
@@ -58,4 +60,4 @@ class HomeView extends Component {
     }
 }
 
-export default withStyles()(HomeView);
+export default withStyles(styles)(HomeView);

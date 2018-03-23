@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter, Route } from 'react-router-dom';
 import sortBy from 'sort-by';
 
-import TextField from 'material-ui/TextField';
 import Menu from './components/Menu';
+import MenuSort from "./components/MenuSort";
 
 import HomeView from './views/HomeView';
 import CategoryView from './views/CategoryView';
@@ -14,8 +14,6 @@ import EditPostView from './views/EditPostView';
 import { sortPosts } from './actions/sync/';
 import { fetchCategories, fetchPosts, votePost, voteComment } from './actions/async/';
 
-import { withStyles } from 'material-ui/styles';
-
 import K from "./utils/constants";
 
 const sortOptions = [
@@ -23,14 +21,6 @@ const sortOptions = [
     {value: K.SORTED_BY_VOTE_SCORE, text:'Score'},
 ];
 
-const styles = theme => ({
-    textField: {
-        marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit,
-        backgroundColor: "#FFFFFF",
-        width: "100%"
-    }
-});
 const InputProps = {
     disableUnderline: true
 };
@@ -63,7 +53,7 @@ class App extends Component{
 
     render(){
         const { is_open_drawer, is_open_sort_menu } = this.state;
-        const { posts = {}, categories, sort, onSortBy, onPositivePost, onNegativePost, onPositiveComment, onNegativeComment, classes } = this.props;
+        const { posts = {}, categories, sort, onSortBy, onPositivePost, onNegativePost, onPositiveComment, onNegativeComment } = this.props;
         const sortedPosts = posts.sort(sortBy(sort));
 
         return (
@@ -73,6 +63,13 @@ class App extends Component{
                     categories={categories}
                     onClose={()=>this.toggleDrawer(false)}
                     onSave={this.handleSubmitComment}
+                />
+                <MenuSort
+                    open={is_open_sort_menu}
+                    options={sortOptions}
+                    sortBy={sort}
+                    onClose={()=>this.toggleSortMenu(false)}
+                    onSortBy={onSortBy}
                 />
                 <Route
                     exact path="/"
@@ -123,4 +120,4 @@ const mapDispatchToProps = dispatch => ({
     onNegativeComment: ({id}) => dispatch(voteComment(id, "downVote"))
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(App)));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
