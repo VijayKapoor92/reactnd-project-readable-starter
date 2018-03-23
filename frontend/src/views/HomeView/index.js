@@ -3,7 +3,10 @@ import { withStyles } from 'material-ui/styles';
 import { Toolbar, Typography, IconButton } from 'material-ui'
 import MenuIcon from 'material-ui-icons/Menu';
 import SortIcon from 'react-icons/lib/md/sort-by-alpha';
+
 import Bar from "../../components/Bar";
+import MainContainer from "../../components/MainContainer";
+import Posts from "../../components/Posts";
 
 class HomeView extends Component {
 
@@ -43,6 +46,13 @@ class HomeView extends Component {
         return (
             <Fragment>
                 {this.renderToolbar()}
+                <MainContainer>
+                    <Posts
+                        posts={posts}
+                        onPositivePost={onPositivePost}
+                        onNegativePost={onNegativePost}
+                    />
+                </MainContainer>
             </Fragment>
         );
     }
