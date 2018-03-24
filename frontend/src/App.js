@@ -15,6 +15,7 @@ import { sortPosts } from './actions/sync/';
 import { fetchCategories, fetchPosts, votePost, voteComment } from './actions/async/';
 
 import K from "./utils/constants";
+import {filterArrayByCategory, findByPath} from "./utils";
 
 const sortOptions = [
     {value: K.SORTED_BY_DATE, text:'Date'},
@@ -62,7 +63,6 @@ class App extends Component{
                     open={is_open_drawer}
                     categories={categories}
                     onClose={()=>this.toggleDrawer(false)}
-                    onSave={this.handleSubmitComment}
                 />
                 <MenuSort
                     open={is_open_sort_menu}
@@ -84,19 +84,33 @@ class App extends Component{
                     )}
                 />
                 <Route
-                    path="/category"
-                    render={() => (
-                        <CategoryView />
+                    path="/category/:path"
+                    render={({match}) => (
+                        <CategoryView
+                            category={findByPath(categories, match.params.path)}
+                            posts={filterArrayByCategory(sortedPosts, match.params.path)}
+                            onOpenDrawer={() => this.toggleDrawer(true)}
+                            onOpenSortMenu={() => this.toggleSortMenu(true)}
+                            onPositivePost={onPositivePost}
+                            onNegativePost={onNegativePost}
+                        />
                     )}
                 />
                 <Route
-                    path="/post"
-                    render={ () =>
-                        <PostView />
+                    path="/post/:id"
+                    render={ ({match}) =>
+                        <PostView
+                            id={match.params.id}
+                            onOpenForm= {() => this.toggleCommentForm(true)}
+                            onPositivePost={onPositivePost}
+                            onNegativePost={onNegativePost}
+                            onPositiveComment={onPositiveComment}
+                            onNegativeComment={onNegativeComment}
+                        />
                     }
                 />
                 <Route
-                    path="/form"
+                    path="/form/:id?"
                     component = { EditPostView }
                 />
             </Fragment>

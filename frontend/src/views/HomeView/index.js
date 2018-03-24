@@ -2,11 +2,12 @@ import React, { Component, Fragment } from 'react';
 import { withStyles } from 'material-ui/styles';
 import { Toolbar, Typography, IconButton } from 'material-ui'
 import MenuIcon from 'material-ui-icons/Menu';
-import SortIcon from 'react-icons/lib/md/sort-by-alpha';
+import SortIcon from 'react-icons/lib/md/sort';
 
 import Bar from "../../components/Bar";
 import MainContainer from "../../components/MainContainer";
 import Posts from "../../components/Posts";
+import Fab from '../../components/Fab';
 
 import styles from '../../styles';
 
@@ -55,6 +56,7 @@ class HomeView extends Component {
                         onNegativePost={onNegativePost}
                     />
                 </MainContainer>
+                <Fab href="/form" />
             </Fragment>
         );
     }
