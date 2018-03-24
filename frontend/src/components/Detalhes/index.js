@@ -34,7 +34,7 @@ const Detalhes = props => {
                     <IconButton onClick={onOpenForm} color="inherit">
                         <CommentIcon />
                     </IconButton>
-                    <IconButton component={Link} to={`/form-post/${id}`} color="inherit">
+                    <IconButton component={Link} to={`/form/${id}`} color="inherit">
                         <EditIcon/>
                     </IconButton>
                     <IconButton color="inherit">
