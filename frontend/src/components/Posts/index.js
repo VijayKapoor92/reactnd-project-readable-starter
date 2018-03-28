@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import List from 'material-ui/List';
 import ItemPost from "../ItemPost";
 
-const Posts = ({posts, onPositivePost, onNegativePost}) => (
+const Posts = ({posts, category, onPositivePost, onNegativePost}) => (
     <List>
         { posts.map(
             ({id, author, title, timestamp, voteScore, commentCount}) =>
                 <ItemPost
+                    category={category.name}
                     key={id}
                     id={id}
                     author={author}
@@ -31,12 +32,14 @@ Posts.propTypes = {
         voteScore: PropTypes.number.isRequired,
         commentCount: PropTypes.number.isRequired
     })).isRequired,
+    category: PropTypes.object.isRequired,
     onPositivePost: PropTypes.func.isRequired,
     onNegativePost: PropTypes.func.isRequired
 };
 
 Posts.defaultProps = {
     posts: [],
+    category: {},
     onPositivePost: f=>f,
 };
 

@@ -96,6 +96,7 @@ class App extends Component{
                     render={ ({match}) =>
                         <PostView
                             id={match.params.id}
+                            category={findByPath(categories, match.params.category)}
                             onOpenForm= {() => this.toggleCommentForm(true)}
                             onPositivePost={onPositivePost}
                             onNegativePost={onNegativePost}

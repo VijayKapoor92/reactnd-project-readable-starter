@@ -9,10 +9,11 @@ import ThumbDownIcon from "react-icons/lib/md/thumb-down";
 import ThumbUpIcon from "react-icons/lib/md/thumb-up";
 import HeartIcon from 'react-icons/lib/md/favorite'
 import CommentIcon from 'react-icons/lib/md/comment';
+// import {category} from "../../reducers";
 
-const ItemPost = ({classes, id, author, title, date, voteScore, commentCount, onPositivePost, onNegativePost}) => (
+const ItemPost = ({classes, id, category, author, title, date, voteScore, commentCount, onPositivePost, onNegativePost}) => (
     <React.Fragment>
-        <ListItem button component={ Link } to={`/post/${id}`}>
+        <ListItem button component={ Link } to={`/${category.name}/${id}`}>
             <Avatar className={classes.avatar}>
                 <Person />
             </Avatar>
@@ -52,7 +53,8 @@ ItemPost.propTypes = {
     voteScore: PropTypes.number.isRequired,
     commentCount: PropTypes.number.isRequired,
     onPositivePost: PropTypes.func.isRequired,
-    onNegativePost: PropTypes.func.isRequired
+    onNegativePost: PropTypes.func.isRequired,
+    category: PropTypes.object.isRequired
 };
 
 ItemPost.defaultProps = {
@@ -63,6 +65,7 @@ ItemPost.defaultProps = {
     date: 0,
     voteScore: 0,
     commentCount: 0,
+    category: {},
     onPositivePost: f=>f,
     onNegativePost: f=>f
 };
