@@ -22,10 +22,6 @@ const sortOptions = [
     {value: K.SORTED_BY_VOTE_SCORE, text:'Score'},
 ];
 
-const InputProps = {
-    disableUnderline: true
-};
-
 class App extends Component{
 
     constructor(props){
@@ -55,7 +51,6 @@ class App extends Component{
     render(){
         const { is_open_drawer, is_open_sort_menu } = this.state;
         const { posts = {}, categories, sort, onSortBy, onPositivePost, onNegativePost, onPositiveComment, onNegativeComment } = this.props;
-        const sortedPosts = posts.sort(sortBy(sort));
 
         return (
             <Fragment>
@@ -75,7 +70,7 @@ class App extends Component{
                     exact path="/"
                     render={ () => (
                         <HomeView
-                            posts={sortedPosts}
+                            posts={posts}
                             onOpenDrawer={() => this.toggleDrawer(true)}
                             onOpenSortMenu={() => this.toggleSortMenu(true)}
                             onPositivePost={onPositivePost}
@@ -84,11 +79,11 @@ class App extends Component{
                     )}
                 />
                 <Route
-                    path="/category/:path"
+                    path="/:category/"
                     render={({match}) => (
                         <CategoryView
-                            category={findByPath(categories, match.params.path)}
-                            posts={filterArrayByCategory(sortedPosts, match.params.path)}
+                            category={findByPath(categories, match.params.category)}
+                            posts={filterArrayByCategory(posts, match.params.category)}
                             onOpenDrawer={() => this.toggleDrawer(true)}
                             onOpenSortMenu={() => this.toggleSortMenu(true)}
                             onPositivePost={onPositivePost}
@@ -97,7 +92,7 @@ class App extends Component{
                     )}
                 />
                 <Route
-                    path="/post/:id"
+                    path="/:category/:id"
                     render={ ({match}) =>
                         <PostView
                             id={match.params.id}
@@ -119,7 +114,7 @@ class App extends Component{
 }
 
 const mapStateToProps = ({posts, categories, sort}) => ({
-    posts: posts.filter(post => post.deleted === false),
+    posts: posts.filter(post => post.deleted === false).sort(sortBy(sort)),
     categories,
     sort,
 });

@@ -5,7 +5,7 @@ import { ListItem, ListItemIcon, ListItemText } from 'material-ui';
 import CategoryIcon from 'react-icons/lib/md/local-offer';
 
 const Categoria = ({name, path}) => (
-    <ListItem button component={Link} to={`/category/${path}`}>
+    <ListItem button component={Link} to={`/${path}`}>
         <ListItemIcon>
             <CategoryIcon />
         </ListItemIcon>
