@@ -40,7 +40,7 @@ class App extends Component{
     * This is the only lifecycle hook called on server rendering.
     * */
 
-    componentWillMount(){
+    componentDidMount(){
         const { onLoadCategories, onLoadPosts } = this.props;
         onLoadCategories();
         onLoadPosts();
