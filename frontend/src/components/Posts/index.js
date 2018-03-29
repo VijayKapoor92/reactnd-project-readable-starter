@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import List from 'material-ui/List';
 import ItemPost from "../ItemPost";
+import { findByPath } from "../../utils";
 
-const Posts = ({posts, category, onPositivePost, onNegativePost}) => (
+const Posts = ({posts, categories, onPositivePost, onNegativePost}) => (
     <List>
         { posts.map(
-            ({id, author, title, timestamp, voteScore, commentCount}) =>
+            ({id, author, title, timestamp, voteScore, commentCount, category}) =>
                 <ItemPost
-                    category={category.name}
+                    category={findByPath(categories, category)}
                     key={id}
                     id={id}
                     author={author}
@@ -30,16 +31,17 @@ Posts.propTypes = {
         title: PropTypes.string.isRequired,
         timestamp: PropTypes.number.isRequired,
         voteScore: PropTypes.number.isRequired,
-        commentCount: PropTypes.number.isRequired
+        commentCount: PropTypes.number.isRequired,
+        category: PropTypes.string.isRequired
     })).isRequired,
-    category: PropTypes.object.isRequired,
+    categories: PropTypes.array.isRequired,
     onPositivePost: PropTypes.func.isRequired,
     onNegativePost: PropTypes.func.isRequired
 };
 
 Posts.defaultProps = {
     posts: [],
-    category: {},
+    categories: [],
     onPositivePost: f=>f,
 };
 

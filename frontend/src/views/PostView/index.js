@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { withStyles } from 'material-ui/styles';
 import { filterArrayByParentId, findById } from "../../utils";
 import sortBy from 'sort-by';
@@ -78,4 +79,8 @@ const mapDispatchToProps = dispatch => ({
     onDeleteComment: ({id}) => dispatch(removeComment(id))
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(PostView)));
+export default compose(
+    withRouter,
+    connect(mapStateToProps, mapDispatchToProps),
+    withStyles(styles)
+)(PostView);

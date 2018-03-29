@@ -1,5 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { withRouter, Route } from 'react-router-dom';
 import sortBy from 'sort-by';
 
@@ -51,7 +52,7 @@ class App extends Component{
     render(){
         const { is_open_drawer, is_open_sort_menu } = this.state;
         const { posts = {}, categories, sort, onSortBy, onPositivePost, onNegativePost, onPositiveComment, onNegativeComment } = this.props;
-
+        console.log(posts);
         return (
             <Fragment>
                 <Menu
@@ -68,8 +69,9 @@ class App extends Component{
                 />
                 <Route
                     exact path="/"
-                    render={ () => (
+                    render={() => (
                         <HomeView
+                            categories={categories}
                             posts={posts}
                             onOpenDrawer={() => this.toggleDrawer(true)}
                             onOpenSortMenu={() => this.toggleSortMenu(true)}
@@ -130,4 +132,7 @@ const mapDispatchToProps = dispatch => ({
     onNegativeComment: ({id}) => dispatch(voteComment(id, "downVote"))
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default compose(
+    withRouter,
+    connect(mapStateToProps, mapDispatchToProps)
+)(App);

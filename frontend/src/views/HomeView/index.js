@@ -45,12 +45,14 @@ class HomeView extends Component {
     }
 
     render(){
-        const { posts, onPositivePost, onNegativePost } = this.props;
+        const { posts, categories, onPositivePost, onNegativePost } = this.props;
+
         return (
             <Fragment>
                 {this.renderToolbar()}
                 <MainContainer>
                     <Posts
+                        categories={categories}
                         posts={posts}
                         onPositivePost={onPositivePost}
                         onNegativePost={onNegativePost}

@@ -52,7 +52,7 @@ class CategoryView extends Component{
 
     render(){
         const { category={}, posts=[], onPositivePost, onNegativePost } = this.props;
-        console.log(category);
+
         return (
             <Fragment>
                 {this.renderToolbar(category.name)}

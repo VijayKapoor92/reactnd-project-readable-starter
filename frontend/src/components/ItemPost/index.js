@@ -13,7 +13,7 @@ import CommentIcon from 'react-icons/lib/md/comment';
 
 const ItemPost = ({classes, id, category, author, title, date, voteScore, commentCount, onPositivePost, onNegativePost}) => (
     <React.Fragment>
-        <ListItem button component={ Link } to={`/${category.name}/${id}`}>
+        <ListItem button component={ Link } to={`/${category.path}/${id}`}>
             <Avatar className={classes.avatar}>
                 <Person />
             </Avatar>
