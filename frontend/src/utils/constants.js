@@ -10,7 +10,8 @@ const constants = {
     COMMENT_VOTE_SCORE: 'COMMENT_VOTE_SCORE',
     SORT_POSTS: 'SORT_POSTS',
     SORTED_BY_VOTE_SCORE: '-voteScore',
-    SORTED_BY_DATE: '-timestamp'
+    SORTED_BY_DATE: '-timestamp',
+    AUTHORIZATION_KEY: Math.random().toString(36).substr(-8)
 };
 
 export default constants;

@@ -1,8 +1,10 @@
+import C from './constants';
+
 const base_url = "http://localhost:3001";
 const headers = {
     'Content-Type':'application/json',
     'Accept':'application/json',
-    'Authorization': Math.random().toString(36).substr(-8)
+    'Authorization': C.AUTHORIZATION_KEY
 };
 
 export const
