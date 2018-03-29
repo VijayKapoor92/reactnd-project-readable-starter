@@ -4,45 +4,41 @@ import List from 'material-ui/List';
 import ItemPost from "../ItemPost";
 import { findByPath } from "../../utils";
 
-const Posts = ({posts, categories, onPositivePost, onNegativePost}) => (
+const Posts = ({posts, categories, onPositivePost, onNegativePost, onDeletePost}) => (
     <List>
         { posts.map(
-            ({id, author, title, timestamp, voteScore, commentCount, category}) =>
+            (post) =>
                 <ItemPost
-                    category={findByPath(categories, category)}
-                    key={id}
-                    id={id}
-                    author={author}
-                    title={title}
-                    date={timestamp}
-                    voteScore={voteScore}
-                    commentCount={commentCount}
+                    category={findByPath(categories, post.category)}
+                    post={post}
+                    key={post.id}
+                    id={post.id}
+                    author={post.author}
+                    title={post.title}
+                    date={post.timestamp}
+                    voteScore={post.voteScore}
+                    commentCount={post.commentCount}
                     onPositivePost={onPositivePost}
                     onNegativePost={onNegativePost}
+                    onDeletePost={onDeletePost}
                 />)
         }
     </List>
 );
 
 Posts.propTypes = {
-    posts: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        author: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-        timestamp: PropTypes.number.isRequired,
-        voteScore: PropTypes.number.isRequired,
-        commentCount: PropTypes.number.isRequired,
-        category: PropTypes.string.isRequired
-    })).isRequired,
+    posts: PropTypes.array.isRequired,
     categories: PropTypes.array.isRequired,
     onPositivePost: PropTypes.func.isRequired,
-    onNegativePost: PropTypes.func.isRequired
+    onNegativePost: PropTypes.func.isRequired,
+    onDeletePost: PropTypes.func.isRequired
 };
 
 Posts.defaultProps = {
     posts: [],
     categories: [],
     onPositivePost: f=>f,
+    onDeletePost: f=>f
 };
 
 export default Posts;

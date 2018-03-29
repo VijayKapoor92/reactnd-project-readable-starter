@@ -9,9 +9,11 @@ import ThumbDownIcon from "react-icons/lib/md/thumb-down";
 import ThumbUpIcon from "react-icons/lib/md/thumb-up";
 import HeartIcon from 'react-icons/lib/md/favorite'
 import CommentIcon from 'react-icons/lib/md/comment';
+import EditIcon from 'react-icons/lib/md/edit';
+import DeleteIcon from 'react-icons/lib/md/delete';
 // import {category} from "../../reducers";
 
-const ItemPost = ({classes, id, category, author, title, date, voteScore, commentCount, onPositivePost, onNegativePost}) => (
+const ItemPost = ({classes, id, category, author, title, date, voteScore, commentCount, onPositivePost, onNegativePost, onDeletePost, post}) => (
     <React.Fragment>
         <ListItem button component={ Link } to={`/${category.path}/${id}`}>
             <Avatar className={classes.avatar}>
@@ -38,6 +40,12 @@ const ItemPost = ({classes, id, category, author, title, date, voteScore, commen
                 <IconButton onClick={()=>onPositivePost({id})}>
                     <ThumbUpIcon />
                 </IconButton>
+                <IconButton component={Link} to={`/form/${id}`}>
+                    <EditIcon/>
+                </IconButton>
+                <IconButton>
+                    <DeleteIcon onClick={()=>onDeletePost(post)} />
+                </IconButton>
             </ListItemSecondaryAction>
         </ListItem>
         <Divider />
@@ -54,11 +62,14 @@ ItemPost.propTypes = {
     commentCount: PropTypes.number.isRequired,
     onPositivePost: PropTypes.func.isRequired,
     onNegativePost: PropTypes.func.isRequired,
-    category: PropTypes.object.isRequired
+    onDeletePost: PropTypes.func.isRequired,
+    category: PropTypes.object.isRequired,
+    post: PropTypes.object.isRequired
 };
 
 ItemPost.defaultProps = {
     classes: {},
+    post:{},
     id: "",
     author: "",
     title: "",
@@ -67,7 +78,8 @@ ItemPost.defaultProps = {
     commentCount: 0,
     category: {},
     onPositivePost: f=>f,
-    onNegativePost: f=>f
+    onNegativePost: f=>f,
+    onDeletePost: f=>f
 };
 
 export default withStyles()(ItemPost);

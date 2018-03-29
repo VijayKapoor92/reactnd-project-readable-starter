@@ -45,7 +45,7 @@ class HomeView extends Component {
     }
 
     render(){
-        const { posts, categories, onPositivePost, onNegativePost } = this.props;
+        const { posts, categories, onPositivePost, onNegativePost, onDeletePost } = this.props;
 
         return (
             <Fragment>
@@ -56,6 +56,7 @@ class HomeView extends Component {
                         posts={posts}
                         onPositivePost={onPositivePost}
                         onNegativePost={onNegativePost}
+                        onDeletePost={onDeletePost}
                     />
                 </MainContainer>
                 <Fab href="/form" />

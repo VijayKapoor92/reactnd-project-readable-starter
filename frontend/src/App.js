@@ -17,6 +17,7 @@ import { fetchCategories, fetchPosts, votePost, voteComment } from './actions/as
 
 import K from "./utils/constants";
 import {filterArrayByCategory, findByPath} from "./utils";
+import {removePost} from "./actions/async";
 
 const sortOptions = [
     {value: K.SORTED_BY_DATE, text:'Date'},
@@ -51,7 +52,7 @@ class App extends Component{
 
     render(){
         const { is_open_drawer, is_open_sort_menu } = this.state;
-        const { posts = {}, categories, sort, onSortBy, onPositivePost, onNegativePost, onPositiveComment, onNegativeComment } = this.props;
+        const { posts = {}, categories, sort, onSortBy, onPositivePost, onNegativePost, onDeletePost, onPositiveComment, onNegativeComment } = this.props;
         console.log(posts);
         return (
             <Fragment>
@@ -77,6 +78,7 @@ class App extends Component{
                             onOpenSortMenu={() => this.toggleSortMenu(true)}
                             onPositivePost={onPositivePost}
                             onNegativePost={onNegativePost}
+                            onDeletePost={onDeletePost}
                         />
                     )}
                 />
@@ -125,6 +127,7 @@ const mapStateToProps = ({posts, categories, sort}) => ({
 const mapDispatchToProps = dispatch => ({
     onLoadCategories: () => dispatch(fetchCategories()),
     onLoadPosts: () => dispatch(fetchPosts()),
+    onDeletePost: ({id}) => dispatch(removePost(id)),
     onSortBy: sortBy => dispatch(sortPosts(sortBy)),
     onPositivePost: ({id}) => dispatch(votePost(id, "upVote")),
     onNegativePost: ({id}) => dispatch(votePost(id, "downVote")),
