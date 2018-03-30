@@ -83,7 +83,7 @@ class App extends Component{
                     )}
                 />
                 <Route
-                    path="/:category/"
+                    path="/:category"
                     render={({match}) => (
                         <CategoryView
                             category={findByPath(categories, match.params.category)}
