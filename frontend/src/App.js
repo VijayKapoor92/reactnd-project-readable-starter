@@ -53,7 +53,7 @@ class App extends Component{
     render(){
         const { is_open_drawer, is_open_sort_menu } = this.state;
         const { posts = {}, categories, sort, onSortBy, onPositivePost, onNegativePost, onDeletePost, onPositiveComment, onNegativeComment } = this.props;
-        console.log(posts);
+
         return (
             <Fragment>
                 <Menu

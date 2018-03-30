@@ -11,7 +11,7 @@ const constants = {
     SORT_POSTS: 'SORT_POSTS',
     SORTED_BY_VOTE_SCORE: '-voteScore',
     SORTED_BY_DATE: '-timestamp',
-    AUTHORIZATION_KEY: Math.random().toString(36).substr(-8)
+    AUTHORIZATION_KEY: 16257
 };
 
 export default constants;
